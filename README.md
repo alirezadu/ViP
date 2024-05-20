@@ -1,2 +1,0 @@
-# Hiddify-Config
-Cxrol-Config
