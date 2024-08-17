@@ -34,7 +34,7 @@
     ],
     "rules": [
       {
-        "domain": "qqzxjv4gv8d8wyatohrj",
+        "domain": "otmdbgx3_pgbo_spqjxw",
         "server": "dns-direct"
       },
       {
@@ -52,13 +52,13 @@
     ],
     "final": "dns-remote",
     "static_ips": {
-      "qqzxJV4gv8d8WYatohrJ": [
-        "2606:4700:d1:0:4ecf:d154:39a9:3d47",
-        "162.159.193.184"
+      "otMDBgx3_pgbO_spqjxW": [
+        "2606:4700:d1:0:af76:bb14:2746:4c43",
+        "188.114.98.6"
       ],
       "sky.rethinkdns.com": [
-        "104.17.147.22",
         "104.17.148.22",
+        "104.17.147.22",
         "188.114.96.3",
         "188.114.97.3",
         "2a06:98c1:3120::6",
@@ -131,7 +131,7 @@
       ],
       "private_key": "8AFZvvBYJWJ7DCqhA5PirST4hZN+LSSYScNyGVNDbH0=",
       "server": "188.114.97.170",
-      "server_port": 7559,
+      "server_port": 878,
       "peer_public_key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
       "reserved": "hTq4",
       "mtu": 1330,
@@ -150,7 +150,7 @@
       ],
       "private_key": "MBJOtm8m9fqxtvbOkWVkCruTLlmAvYivcSxArVZIPkw=",
       "server": "188.114.97.170",
-      "server_port": 3138,
+      "server_port": 2408,
       "peer_public_key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
       "reserved": "ccCW",
       "mtu": 1280
@@ -163,8 +163,8 @@
         "2606:4700:110:8478:9303:651f:c0e4:9a46/128"
       ],
       "private_key": "8AFZvvBYJWJ7DCqhA5PirST4hZN+LSSYScNyGVNDbH0=",
-      "server": "qqzxJV4gv8d8WYatohrJ",
-      "server_port": 5279,
+      "server": "otMDBgx3_pgbO_spqjxW",
+      "server_port": 4233,
       "peer_public_key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
       "reserved": "hTq4",
       "mtu": 1330,
@@ -183,7 +183,7 @@
       ],
       "private_key": "MBJOtm8m9fqxtvbOkWVkCruTLlmAvYivcSxArVZIPkw=",
       "server": "162.159.192.1",
-      "server_port": 890,
+      "server_port": 1074,
       "peer_public_key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
       "reserved": "ccCW",
       "mtu": 1280
@@ -276,7 +276,7 @@
     },
     "clash_api": {
       "external_controller": "127.0.0.1:16756",
-      "secret": "g7JjcA1-LNpkcOzQ"
+      "secret": "HAmQVLVu_0LaG3Se"
     }
   }
 }
