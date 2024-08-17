@@ -1,0 +1,282 @@
+{
+  "log": {
+    "level": "warn",
+    "output": "box.log",
+    "timestamp": true
+  },
+  "dns": {
+    "servers": [
+      {
+        "tag": "dns-remote",
+        "address": "udp://1.1.1.1",
+        "address_resolver": "dns-direct"
+      },
+      {
+        "tag": "dns-trick-direct",
+        "address": "https://sky.rethinkdns.com/",
+        "detour": "direct-fragment"
+      },
+      {
+        "tag": "dns-direct",
+        "address": "1.1.1.1",
+        "address_resolver": "dns-local",
+        "detour": "direct"
+      },
+      {
+        "tag": "dns-local",
+        "address": "local",
+        "detour": "direct"
+      },
+      {
+        "tag": "dns-block",
+        "address": "rcode://success"
+      }
+    ],
+    "rules": [
+      {
+        "domain": "otmdbgx3_pgbo_spqjxw",
+        "server": "dns-direct"
+      },
+      {
+        "domain": "connectivitycheck.gstatic.com",
+        "server": "dns-remote",
+        "rewrite_ttl": 3000
+      },
+      {
+        "rule_set": [
+          "geoip-ir",
+          "geosite-ir"
+        ],
+        "server": "dns-direct"
+      }
+    ],
+    "final": "dns-remote",
+    "static_ips": {
+      "otMDBgx3_pgbO_spqjxW": [
+        "2606:4700:d1:0:af76:bb14:2746:4c43",
+        "188.114.98.6"
+      ],
+      "sky.rethinkdns.com": [
+        "104.17.148.22",
+        "104.17.147.22",
+        "188.114.96.3",
+        "188.114.97.3",
+        "2a06:98c1:3120::6",
+        "2a06:98c1:3121::6"
+      ]
+    },
+    "independent_cache": true
+  },
+  "inbounds": [
+    {
+      "type": "tun",
+      "tag": "tun-in",
+      "mtu": 9000,
+      "inet4_address": "172.19.0.1/28",
+      "auto_route": true,
+      "strict_route": true,
+      "endpoint_independent_nat": true,
+      "stack": "mixed",
+      "sniff": true,
+      "sniff_override_destination": true
+    },
+    {
+      "type": "mixed",
+      "tag": "mixed-in",
+      "listen": "127.0.0.1",
+      "listen_port": 12334,
+      "sniff": true,
+      "sniff_override_destination": true
+    },
+    {
+      "type": "direct",
+      "tag": "dns-in",
+      "listen": "127.0.0.1",
+      "listen_port": 16450
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "selector",
+      "tag": "select",
+      "outbounds": [
+        "auto",
+        "CxrolVPN § 0",
+        "CxrolVPN § 1",
+        "CxrolVPN § 2",
+        "CxrolVPN § 3"
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "urltest",
+      "tag": "auto",
+      "outbounds": [
+        "CxrolVPN § 0",
+        "CxrolVPN § 1",
+        "CxrolVPN § 2",
+        "CxrolVPN § 3"
+      ],
+      "url": "http://connectivitycheck.gstatic.com/generate_204",
+      "interval": "10m0s",
+      "tolerance": 1,
+      "idle_timeout": "30m0s"
+    },
+    {
+      "type": "wireguard",
+      "tag": "CxrolVPN § 0",
+      "local_address": [
+        "172.16.0.2/24",
+        "2606:4700:110:8478:9303:651f:c0e4:9a46/128"
+      ],
+      "private_key": "8AFZvvBYJWJ7DCqhA5PirST4hZN+LSSYScNyGVNDbH0=",
+      "server": "188.114.97.170",
+      "server_port": 878,
+      "peer_public_key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
+      "reserved": "hTq4",
+      "mtu": 1330,
+      "fake_packets": "40-80",
+      "fake_packets_size": "40-100",
+      "fake_packets_delay": "4-8",
+      "fake_packets_mode": "m4"
+    },
+    {
+      "type": "wireguard",
+      "tag": "CxrolVPN § 1",
+      "detour": "CxrolVPN § 0",
+      "local_address": [
+        "172.16.0.2/24",
+        "2606:4700:110:8bb9:3822:7275:bf3:677c/128"
+      ],
+      "private_key": "MBJOtm8m9fqxtvbOkWVkCruTLlmAvYivcSxArVZIPkw=",
+      "server": "188.114.97.170",
+      "server_port": 2408,
+      "peer_public_key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
+      "reserved": "ccCW",
+      "mtu": 1280
+    },
+    {
+      "type": "wireguard",
+      "tag": "CxrolVPN § 2",
+      "local_address": [
+        "172.16.0.2/24",
+        "2606:4700:110:8478:9303:651f:c0e4:9a46/128"
+      ],
+      "private_key": "8AFZvvBYJWJ7DCqhA5PirST4hZN+LSSYScNyGVNDbH0=",
+      "server": "otMDBgx3_pgbO_spqjxW",
+      "server_port": 4233,
+      "peer_public_key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
+      "reserved": "hTq4",
+      "mtu": 1330,
+      "fake_packets": "1-3",
+      "fake_packets_size": "10-30",
+      "fake_packets_delay": "10-30",
+      "fake_packets_mode": "m4"
+    },
+    {
+      "type": "wireguard",
+      "tag": "CxrolVPN § 3",
+      "detour": "CxrolVPN § 2",
+      "local_address": [
+        "172.16.0.2/24",
+        "2606:4700:110:8bb9:3822:7275:bf3:677c/128"
+      ],
+      "private_key": "MBJOtm8m9fqxtvbOkWVkCruTLlmAvYivcSxArVZIPkw=",
+      "server": "162.159.192.1",
+      "server_port": 1074,
+      "peer_public_key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
+      "reserved": "ccCW",
+      "mtu": 1280
+    },
+    {
+      "type": "dns",
+      "tag": "dns-out"
+    },
+    {
+      "type": "direct",
+      "tag": "direct"
+    },
+    {
+      "type": "direct",
+      "tag": "direct-fragment",
+      "tls_fragment": {
+        "enabled": true,
+        "size": "10-30",
+        "sleep": "2-8"
+      }
+    },
+    {
+      "type": "direct",
+      "tag": "bypass"
+    },
+    {
+      "type": "block",
+      "tag": "block"
+    }
+  ],
+  "route": {
+    "rules": [
+      {
+        "rule_set": [
+          "geoip-ir",
+          "geosite-ir"
+        ],
+        "outbound": "direct"
+      },
+      {
+        "inbound": "dns-in",
+        "outbound": "dns-out"
+      },
+      {
+        "port": 53,
+        "outbound": "dns-out"
+      },
+      {
+        "clash_mode": "Direct",
+        "outbound": "direct"
+      },
+      {
+        "clash_mode": "Global",
+        "outbound": "select"
+      },
+      {
+        "process_name": [
+          "Hiddify",
+          "Hiddify.exe",
+          "HiddifyCli",
+          "HiddifyCli.exe"
+        ],
+        "outbound": "bypass"
+      }
+    ],
+    "rule_set": [
+      {
+        "type": "remote",
+        "tag": "geoip-ir",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/hiddify/hiddify-geo/rule-set/country/geoip-ir.srs",
+        "update_interval": "120h0m0s"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-ir",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/hiddify/hiddify-geo/rule-set/country/geosite-ir.srs",
+        "update_interval": "120h0m0s"
+      }
+    ],
+    "final": "select",
+    "auto_detect_interface": true,
+    "override_android_vpn": true
+  },
+  "experimental": {
+    "cache_file": {
+      "enabled": true,
+      "path": "clash.db"
+    },
+    "clash_api": {
+      "external_controller": "127.0.0.1:16756",
+      "secret": "HAmQVLVu_0LaG3Se"
+    }
+  }
+}
