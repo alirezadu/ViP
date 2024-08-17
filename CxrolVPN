@@ -1,6 +1,6 @@
 //profile-title: CXROLVPN
 //profile-update-interval: 24
-//subscription-userinfo: upload=0; download=0; total=10000; expire=30
+//subscription-userinfo: upload=604646164000; download=604615464000; total=56000464645754000; expire=800464648764000000
 //Telgram: @CxrolVPN
 
 warp://p1@188.114.97.170:894?ifp=40-80&ifps=40-100&ifpd=4-8&ifpm=m4#CxrolVPN&&detour=warp://p2@188.114.97.170:894#CxrolVPN
